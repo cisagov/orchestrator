@@ -9,6 +9,10 @@ secrets:
     file: ./secrets/trustymail_write_creds.yml
   sslyze_write_creds:
     file: ./secrets/sslyze_write_creds.yml
+  aws_config:
+    file: ./secrets/aws/config
+  aws_creds:
+    file: ./secrets/aws/credentials
 
 services:
   redis:
@@ -26,6 +30,15 @@ services:
     image: 'dhub.ncats.dhs.gov:5001/scanner:latest'
     depends_on:
       - redis
+    secrets:
+      - source: aws_config
+        target: aws_config
+      - source: aws_creds
+        target: aws_creds
+    environment:
+      - AWS_CONFIG_FILE=/run/secrets/aws_config
+      - AWS_SHARED_CREDENTIALS_FILE=/run/secrets/aws_creds
+      - AWS_PROFILE=default
     volumes:
       - /tmp:/home/scanner/shared
     dns:
