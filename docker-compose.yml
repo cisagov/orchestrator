@@ -1,0 +1,45 @@
+version: '3.2'
+
+secrets:
+  cyhy_read_creds:
+    file: ./secrets/cyhy_read_creds.yml
+  pshtt_write_creds:
+    file: ./secrets/pshtt_write_creds.yml
+  trustymail_write_creds:
+    file: ./secrets/trustymail_write_creds.yml
+  sslyze_write_creds:
+    file: ./secrets/sslyze_write_creds.yml
+
+services:
+  redis:
+    image: 'redis:alpine'
+  gather:
+    image: 'dhub.ncats.dhs.gov:5001/gatherer:latest'
+    secrets:
+      - source: cyhy_read_creds
+        target: database_creds.yml
+    volumes:
+      - /tmp:/home/gatherer/shared
+  scan:
+    image: 'dhub.ncats.dhs.gov:5001/scanner:latest'
+    volumes:
+      - /tmp:/home/scanner/shared
+    dns:
+     - 8.8.8.8
+  save:
+    image: 'dhub.ncats.dhs.gov:5001/saver:latest'
+    secrets:
+      - source: pshtt_write_creds
+        target: pshtt_write_creds.yml
+      - source: trustymail_write_creds
+        target: trustymail_write_creds.yml
+      - source: sslyze_write_creds
+        target: sslyze_write_creds.yml
+    volumes:
+      - /tmp:/home/saver/shared
+  # report:
+  #   image: 'dhub.ncats.dhs.gov:5001/https-scan-report'
+  #   secrets:
+  #     - source: db.yml
+  #   volumes:
+  #     - ./shared:/home/shared/
