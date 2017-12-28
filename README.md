@@ -13,13 +13,13 @@ containers:
 Before attempting to run this project, you must create a `secrets`
 directory and several files inside it that contain credentials for the
 various Docker containers to use.  These files are:
-* `secrets/cyhy_read_creds.yml` - a YML file containing credentials to
+* `secrets/cyhy_read_creds.yml` - a YAML file containing credentials to
   read from the Cyber Hygiene database
-* `secrets/pshtt_write_creds.yml` - a YML file containing credentials
+* `secrets/pshtt_write_creds.yml` - a YAML file containing credentials
   to write to the pshtt database
-* `secrets/trustymail_write_creds.yml` - a YML file containing
+* `secrets/trustymail_write_creds.yml` - a YAML file containing
   credentials to write to the trustymail database
-* `secrets/sslyze_write_creds.yml` - a YML file containing credentials
+* `secrets/sslyze_write_creds.yml` - a YAML file containing credentials
   to write to the sslyze database
 * `secrets/aws/config` - [an ini format file containing the AWS
   configuration](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
