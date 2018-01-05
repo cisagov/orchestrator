@@ -18,7 +18,7 @@ services:
   redis:
     image: 'redis:alpine'
   gather:
-    image: 'dhub.ncats.dhs.gov:5001/gatherer:latest'
+    image: 'dhsncats/gatherer:latest'
     depends_on:
       - redis
     secrets:
@@ -27,7 +27,7 @@ services:
     volumes:
       - /tmp:/home/gatherer/shared
   scan:
-    image: 'dhub.ncats.dhs.gov:5001/scanner:latest'
+    image: 'dhsncats/scanner:latest'
     depends_on:
       - redis
     secrets:
@@ -44,7 +44,7 @@ services:
     dns:
      - 8.8.8.8
   save:
-    image: 'dhub.ncats.dhs.gov:5001/saver:latest'
+    image: 'dhsncats/saver:latest'
     depends_on:
       - redis
     secrets:
@@ -57,7 +57,7 @@ services:
     volumes:
       - /tmp:/home/saver/shared
   # report:
-  #   image: 'dhub.ncats.dhs.gov:5001/https-scan-report'
+  #   image: 'dhsncats/https-scan-report'
   #   secrets:
   #     - source: db.yml
   #   volumes:
