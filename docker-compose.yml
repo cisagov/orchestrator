@@ -3,10 +3,16 @@ version: '3.2'
 secrets:
   cyhy_read_creds:
     file: ./secrets/cyhy_read_creds.yml
+  pshtt_read_creds:
+    file: ./secrets/pshtt_read_creds.yml
   pshtt_write_creds:
     file: ./secrets/pshtt_write_creds.yml
+  trustymail_read_creds:
+    file: ./secrets/trustymail_read_creds.yml
   trustymail_write_creds:
     file: ./secrets/trustymail_write_creds.yml
+  sslyze_read_creds:
+    file: ./secrets/sslyze_read_creds.yml
   sslyze_write_creds:
     file: ./secrets/sslyze_write_creds.yml
   aws_config:
@@ -56,9 +62,14 @@ services:
         target: sslyze_write_creds.yml
     volumes:
       - /tmp:/home/saver/shared
-  # report:
-  #   image: 'dhsncats/https-scan-report'
-  #   secrets:
-  #     - source: db.yml
-  #   volumes:
-  #     - ./shared:/home/shared/
+  trustymail_report:
+    image: 'dhsncats/trustymail_reporter:latest'
+    depends_on:
+      - redis
+    secrets:
+      - source: trustymail_read_creds
+        target: trustymail_read_creds.yml
+      - source: sslyze_read_creds
+        target: sslyze_read_creds.yml
+    volumes:
+      - /tmp:/home/reporter/shared
