@@ -23,6 +23,11 @@ secrets:
 services:
   redis:
     image: 'redis:alpine'
+    ports:
+      - target: 6379
+        published: 6379
+        protocol: tcp
+        mode: host
   gather:
     image: 'dhsncats/gatherer:latest'
     depends_on:
@@ -62,13 +67,24 @@ services:
         target: sslyze_write_creds.yml
     volumes:
       - /tmp:/home/saver/shared
-  trustymail_report:
-    image: 'dhsncats/trustymail_reporter:latest'
+  # trustymail_report:
+  #   image: 'dhsncats/trustymail_reporter:latest'
+  #   depends_on:
+  #     - redis
+  #   secrets:
+  #     - source: trustymail_read_creds
+  #       target: trustymail_read_creds.yml
+  #     - source: sslyze_read_creds
+  #       target: sslyze_read_creds.yml
+  #   volumes:
+  #     - /tmp:/home/reporter/shared
+  pshtt_report:
+    image: 'dhsncats/pshtt_reporter:latest'
     depends_on:
       - redis
     secrets:
-      - source: trustymail_read_creds
-        target: trustymail_read_creds.yml
+      - source: pshtt_read_creds
+        target: pshtt_read_creds.yml
       - source: sslyze_read_creds
         target: sslyze_read_creds.yml
     volumes:
