@@ -1,5 +1,7 @@
 # NCATS Orchestrator :notes: :musical_note: #
 
+[![Build Status](https://travis-ci.org/dhs-ncats/orchestrator.svg?branch=master)](https://travis-ci.org/dhs-ncats/orchestrator)
+
 This is a simple [`docker-compose`](https://docs.docker.com/compose/)
 project that orchestrates the running of the following Docker
 containers: 
