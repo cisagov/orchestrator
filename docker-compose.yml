@@ -30,7 +30,7 @@ services:
     volumes:
       - /tmp:/home/gatherer/shared
   scan:
-    image: 'dhsncats/scanner:1.0.0'
+    image: 'dhsncats/scanner:1.0.1-rc.1'
     depends_on:
       - redis
     secrets:
