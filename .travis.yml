@@ -1,2 +1,2 @@
 script:
-  - travis_scripts/validate_docker_compose_file.sh
+  - docker-compose config --quiet
