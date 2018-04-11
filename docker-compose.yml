@@ -47,7 +47,7 @@ services:
     dns:
      - 8.8.8.8
   save:
-    image: 'dhsncats/saver:1.0.1-rc.2'
+    image: 'dhsncats/saver:1.0.1-rc.3'
     depends_on:
       - redis
     secrets:
