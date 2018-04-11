@@ -1,0 +1,2 @@
+script:
+  - docker-compose config --quiet

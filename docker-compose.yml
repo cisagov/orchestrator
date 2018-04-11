@@ -21,7 +21,7 @@ services:
     #     protocol: tcp
     #     mode: host
   gather:
-    image: 'dhsncats/gatherer:production'
+    image: 'dhsncats/gatherer:1.0.0'
     depends_on:
       - redis
     secrets:
@@ -30,7 +30,7 @@ services:
     volumes:
       - /tmp:/home/gatherer/shared
   scan:
-    image: 'dhsncats/scanner:production'
+    image: 'dhsncats/scanner:1.0.1'
     depends_on:
       - redis
     secrets:
@@ -47,7 +47,7 @@ services:
     dns:
      - 8.8.8.8
   save:
-    image: 'dhsncats/saver:production'
+    image: 'dhsncats/saver:1.0.1'
     depends_on:
       - redis
     secrets:
@@ -56,7 +56,7 @@ services:
     volumes:
       - /tmp:/home/saver/shared
   trustymail_report:
-    image: 'dhsncats/trustymail_reporter:production'
+    image: 'dhsncats/trustymail_reporter:1.0.1'
     depends_on:
       - redis
     secrets:
@@ -65,7 +65,7 @@ services:
     volumes:
       - /tmp:/home/reporter/shared
   pshtt_report:
-    image: 'dhsncats/pshtt_reporter:production'
+    image: 'dhsncats/pshtt_reporter:1.0.1'
     depends_on:
       - redis
     secrets:
