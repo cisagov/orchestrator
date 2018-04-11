@@ -30,7 +30,7 @@ services:
     volumes:
       - /tmp:/home/gatherer/shared
   scan:
-    image: 'dhsncats/scanner:1.0.1-rc.1'
+    image: 'dhsncats/scanner:1.0.1'
     depends_on:
       - redis
     secrets:
@@ -47,7 +47,7 @@ services:
     dns:
      - 8.8.8.8
   save:
-    image: 'dhsncats/saver:1.0.1-rc.4'
+    image: 'dhsncats/saver:1.0.1'
     depends_on:
       - redis
     secrets:
@@ -56,7 +56,7 @@ services:
     volumes:
       - /tmp:/home/saver/shared
   trustymail_report:
-    image: 'dhsncats/trustymail_reporter:1.0.1-rc.1'
+    image: 'dhsncats/trustymail_reporter:1.0.1'
     depends_on:
       - redis
     secrets:
@@ -65,7 +65,7 @@ services:
     volumes:
       - /tmp:/home/reporter/shared
   pshtt_report:
-    image: 'dhsncats/pshtt_reporter:1.0.1-rc.1'
+    image: 'dhsncats/pshtt_reporter:1.0.1'
     depends_on:
       - redis
     secrets:
