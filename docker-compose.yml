@@ -28,7 +28,7 @@ services:
       - source: cyhy_read_creds
         target: database_creds.yml
     volumes:
-      - /tmp:/home/gatherer/shared
+      - ./output:/home/gatherer/shared
   scan:
     image: 'dhsncats/scanner:1.0.1'
     depends_on:
@@ -43,7 +43,7 @@ services:
       - AWS_SHARED_CREDENTIALS_FILE=/run/secrets/aws_creds
       - AWS_PROFILE=default
     volumes:
-      - /tmp:/home/scanner/shared
+      - ./output:/home/scanner/shared
     dns:
      - 8.8.8.8
   save:
@@ -54,7 +54,7 @@ services:
       - source: scan_write_creds
         target: scan_write_creds.yml
     volumes:
-      - /tmp:/home/saver/shared
+      - ./output:/home/saver/shared
   trustymail_report:
     image: 'dhsncats/trustymail_reporter:1.0.1'
     depends_on:
@@ -63,7 +63,7 @@ services:
       - source: scan_read_creds
         target: scan_read_creds.yml
     volumes:
-      - /tmp:/home/reporter/shared
+      - ./output:/home/reporter/shared
   pshtt_report:
     image: 'dhsncats/pshtt_reporter:1.0.2'
     depends_on:
@@ -72,4 +72,4 @@ services:
       - source: scan_read_creds
         target: scan_read_creds.yml
     volumes:
-      - /tmp:/home/reporter/shared
+      - ./output:/home/reporter/shared
