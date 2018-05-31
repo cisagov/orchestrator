@@ -7,10 +7,14 @@ secrets:
     file: ./secrets/scan_read_creds.yml
   scan_write_creds:
     file: ./secrets/scan_write_creds.yml
-  aws_config:
-    file: ./secrets/aws/config
-  aws_creds:
-    file: ./secrets/aws/credentials
+  aws_lambda_config:
+    file: ./secrets/aws_lambda/config
+  aws_lambda_creds:
+    file: ./secrets/aws_lambda/credentials
+  aws_elasticsearch_config:
+    file: ./secrets/aws_elasticsearch/config
+  aws_elasticsearch_creds:
+    file: ./secrets/aws_elasticsearch/credentials
 
 services:
   redis:
@@ -34,9 +38,9 @@ services:
     depends_on:
       - redis
     secrets:
-      - source: aws_config
+      - source: aws_lambda_config
         target: aws_config
-      - source: aws_creds
+      - source: aws_lambda_creds
         target: aws_creds
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
@@ -62,6 +66,10 @@ services:
     secrets:
       - source: scan_read_creds
         target: scan_read_creds.yml
+      - source: aws_elasticsearch_config
+        target: aws_config
+      - source: aws_elasticsearch_creds
+        target: aws_creds
     volumes:
       - ./output:/home/reporter/shared
   pshtt_report:
