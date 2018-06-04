@@ -70,6 +70,10 @@ services:
         target: aws_config
       - source: aws_elasticsearch_creds
         target: aws_creds
+    environment:
+      - AWS_CONFIG_FILE=/run/secrets/aws_config
+      - AWS_SHARED_CREDENTIALS_FILE=/run/secrets/aws_creds
+      - AWS_PROFILE=default
     volumes:
       - ./output:/home/reporter/shared
   pshtt_report:
