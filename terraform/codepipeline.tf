@@ -163,7 +163,7 @@ resource "aws_codepipeline" "pipeline" {
         Owner = "dhs-ncats"
         Repo = "orchestrator"
         Branch = "feature/codepipeline"
-        PollForSourceChanges = true
+        PollForSourceChanges = "true"
       }
     }
   }
