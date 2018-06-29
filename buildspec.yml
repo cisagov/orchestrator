@@ -3,10 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Updating and installing docker-compose
       - apt-get update -y
-      - apt-get install docker-compose -y
+      - pip install docker-compose
   pre_build:
     commands:
-      - echo Verifying docker-compose.yml syntax
       - docker-compose config --quiet
