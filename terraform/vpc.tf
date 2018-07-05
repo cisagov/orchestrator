@@ -222,45 +222,5 @@ resource "aws_security_group" "build_private_sg" {
 resource "aws_security_group" "build_public_sg" {
   vpc_id = "${aws_vpc.build_vpc.id}"
 
-  # Allow ephemeral ports from anywhere
-  ingress {
-    protocol = "tcp"
-    cidr_blocks = [
-      "0.0.0.0/0"
-    ]
-    from_port = 1024
-    to_port = 65535
-  }
-
-  # Allow HTTP (needed for apt-get)
-  egress {
-    protocol = "tcp"
-    cidr_blocks = [
-      "0.0.0.0/0"
-    ]
-    from_port = 80
-    to_port = 80
-  }
-
-  # Allow HTTPS
-  egress {
-    protocol = "tcp"
-    cidr_blocks = [
-      "0.0.0.0/0"
-    ]
-    from_port = 443
-    to_port = 443
-  }
-
-  # Allow egress to the private subnet via ephemeral ports
-  egress {
-    protocol = "tcp"
-    cidr_blocks = [
-      "${aws_subnet.build_private_subnet.cidr_block}"
-    ]
-    from_port = 1024
-    to_port = 65535
-  }
-
   tags = "${var.tags}"
 }
