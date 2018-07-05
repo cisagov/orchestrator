@@ -176,7 +176,7 @@ resource "aws_codebuild_project" "project" {
     vpc_id = "${aws_vpc.build_vpc.id}"
     
     security_group_ids = [
-      "${aws_vpc.build_vpc.default_security_group_id}"
+      "${aws_security_group.build_private_sg.id}"
     ]
     
     subnets = [
