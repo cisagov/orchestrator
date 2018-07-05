@@ -71,10 +71,89 @@ resource "aws_iam_role_policy" "build_cloudwatch_policy" {
   policy = "${data.aws_iam_policy_document.build_cloudwatch_doc.json}"
 }
 
+# IAM policy document that that allows some EC2 permissions on the
+# instances in our build subnet in our build VPC.  This will be
+# applied to the role we are creating.
+data "aws_iam_policy_document" "build_ec2_doc" {
+  statement {
+    effect = "Allow"
+    
+    actions = [
+      "ec2:*",
+      "ec2:CreateNetworkInterface",
+      "ec2:DeleteNetworkInterface",
+      "ec2:DescribeDhcpOptions",
+      "ec2:DescribeNetworkInterfaces",
+      "ec2:DescribeSecurityGroups",
+      "ec2:DescribeSubnets",
+      "ec2:DescribeVpcs"
+    ]
+
+    resources = [
+      "*"
+    ]
+
+    # condition {
+    #   test = "StringEquals"
+    #   variable = "ec2:vpc"
+    #   values = [
+    #     "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:vpc/${aws_vpc.build_vpc.id}"
+    #   ]
+    # }
+  }
+
+  # statement {
+  #   effect = "Allow"
+    
+  #   actions = [
+  #     "ec2:CreateNetworkInterface"
+  #   ]
+
+  #   resources = [
+  #     "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:subnet/${aws_subnet.build_subnet.id}/*"
+  #   ]
+
+  #   condition {
+  #     test = "StringEquals"
+  #     variable = "ec2:vpc"
+  #     values = [
+  #       "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:vpc/${aws_vpc.build_vpc.id}"
+  #     ]
+  #   }
+  # }
+
+  # statement {
+  #   effect = "Allow"
+    
+  #   actions = [
+  #     "ec2:CreateNetworkInterface"
+  #   ]
+
+  #   resources = [
+  #     "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:vpc/${aws_vpc.build_vpc.id}"
+  #     # "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:subnet/${aws_subnet.build_subnet.id}"
+  #   ]
+
+  #   # condition {
+  #   #   test = "StringEquals"
+  #   #   variable = "ec2:vpc"
+  #   #   values = [
+  #   #     "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:vpc/${aws_vpc.build_vpc.id}"
+  #   #   ]
+  #   # }
+  # }
+}
+
+# The CloudWatch policy for our role
+resource "aws_iam_role_policy" "build_ec2_policy" {
+  role = "${aws_iam_role.build_role.id}"
+  policy = "${data.aws_iam_policy_document.build_ec2_doc.json}"
+}
+
 # The CodeBuild project
 resource "aws_codebuild_project" "project" {
   name = "orchestrator"
-  description  = "AWS CodeBuild for the DHS-NCATS orchestrator project"
+  description = "AWS CodeBuild for the DHS-NCATS orchestrator project"
   build_timeout = "60"
   service_role = "${aws_iam_role.build_role.arn}"
 
@@ -91,6 +170,18 @@ resource "aws_codebuild_project" "project" {
 
   source {
     type = "CODEPIPELINE"
+  }
+
+  vpc_config {
+    vpc_id = "${aws_vpc.build_vpc.id}"
+    
+    security_group_ids = [
+      "${aws_vpc.build_vpc.default_security_group_id}"
+    ]
+    
+    subnets = [
+      "${aws_subnet.build_private_subnet.id}"
+    ]
   }
 
   tags = "${var.tags}"
