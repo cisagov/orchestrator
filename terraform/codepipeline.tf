@@ -4,6 +4,15 @@ resource "aws_s3_bucket" "pipeline_bucket" {
   acl = "private"
   force_destroy = "true"
 
+  # Destroy objects after 30 days
+  lifecycle_rule {
+    enabled = true
+
+    expiration {
+      days = 30
+    }
+  }
+
   tags = "${var.tags}"
 }
 
