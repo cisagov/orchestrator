@@ -17,7 +17,7 @@ resource "aws_subnet" "build_public_subnet" {
   tags = "${var.tags}"
 }
 
-# Subnet of the VPC in which we run our pipeline
+# Private subnet of the VPC in which we run our pipeline
 resource "aws_subnet" "build_private_subnet" {
   vpc_id = "${aws_vpc.build_vpc.id}"
   cidr_block = "10.66.66.0/24"
@@ -92,7 +92,7 @@ resource "aws_route_table_association" "association" {
 }
 
 # ACL for the private subnet of the VPC
-resource "aws_network_acl" "build_default_acl" {
+resource "aws_network_acl" "build_private_acl" {
   vpc_id = "${aws_vpc.build_vpc.id}"
   subnet_ids = [
     "${aws_subnet.build_private_subnet.id}"
@@ -107,21 +107,21 @@ resource "aws_network_acl" "build_default_acl" {
     from_port = 1024
     to_port = 65535
   }
-
+  
   # Allow HTTP (needed for apt-get)
-  egress {
-    protocol = "tcp"
-    rule_no = 100
-    action = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port = 80
-    to_port = 80
-  }
+  # egress {
+  #   protocol = "tcp"
+  #   rule_no = 110
+  #   action = "allow"
+  #   cidr_block = "0.0.0.0/0"
+  #   from_port = 80
+  #   to_port = 80
+  # }
 
   # Allow HTTPS
   egress {
     protocol = "tcp"
-    rule_no = 110
+    rule_no = 120
     action = "allow"
     cidr_block = "0.0.0.0/0"
     from_port = 443
@@ -149,14 +149,14 @@ resource "aws_network_acl" "build_public_acl" {
   }
 
   # Allow HTTP (needed for apt-get)
-  egress {
-    protocol = "tcp"
-    rule_no = 100
-    action = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port = 80
-    to_port = 80
-  }
+  # egress {
+  #   protocol = "tcp"
+  #   rule_no = 100
+  #   action = "allow"
+  #   cidr_block = "0.0.0.0/0"
+  #   from_port = 80
+  #   to_port = 80
+  # }
 
   # Allow HTTPS
   egress {
@@ -196,14 +196,14 @@ resource "aws_security_group" "build_private_sg" {
   }
 
   # Allow HTTP (needed for apt-get)
-  egress {
-    protocol = "tcp"
-    cidr_blocks = [
-      "0.0.0.0/0"
-    ]
-    from_port = 80
-    to_port = 80
-  }
+  # egress {
+  #   protocol = "tcp"
+  #   cidr_blocks = [
+  #     "0.0.0.0/0"
+  #   ]
+  #   from_port = 80
+  #   to_port = 80
+  # }
 
   # Allow HTTPS
   egress {
