@@ -60,7 +60,8 @@ data "aws_iam_policy_document" "build_cloudwatch_doc" {
     ]
 
     resources = [
-      "${aws_cloudwatch_log_group.logs.arn}"
+      "${aws_cloudwatch_log_group.logs.arn}",
+      "${aws_cloudwatch_log_group.logs.arn}:*",
     ]
   }
 }
@@ -74,12 +75,11 @@ resource "aws_iam_role_policy" "build_cloudwatch_policy" {
 # IAM policy document that that allows some EC2 permissions on the
 # instances in our build subnet in our build VPC.  This will be
 # applied to the role we are creating.
-data "aws_iam_policy_document" "build_ec2_doc" {
+data "aws_iam_policy_document" "build_vpc_doc" {
   statement {
     effect = "Allow"
     
     actions = [
-      "ec2:*",
       "ec2:CreateNetworkInterface",
       "ec2:DeleteNetworkInterface",
       "ec2:DescribeDhcpOptions",
@@ -92,62 +92,42 @@ data "aws_iam_policy_document" "build_ec2_doc" {
     resources = [
       "*"
     ]
-
-    # condition {
-    #   test = "StringEquals"
-    #   variable = "ec2:vpc"
-    #   values = [
-    #     "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:vpc/${aws_vpc.build_vpc.id}"
-    #   ]
-    # }
   }
 
-  # statement {
-  #   effect = "Allow"
+  statement {
+    effect = "Allow"
     
-  #   actions = [
-  #     "ec2:CreateNetworkInterface"
-  #   ]
-
-  #   resources = [
-  #     "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:subnet/${aws_subnet.build_subnet.id}/*"
-  #   ]
-
-  #   condition {
-  #     test = "StringEquals"
-  #     variable = "ec2:vpc"
-  #     values = [
-  #       "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:vpc/${aws_vpc.build_vpc.id}"
-  #     ]
-  #   }
-  # }
-
-  # statement {
-  #   effect = "Allow"
+    actions = [
+      "ec2:CreateNetworkInterfacePermission"
+    ]
     
-  #   actions = [
-  #     "ec2:CreateNetworkInterface"
-  #   ]
+    resources = [
+      "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:network-interface/*"
+    ]
+    
+    condition {
+      test = "StringEquals"
+      variable = "ec2:Subnet"
+      values = [
+        "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:subnet/${aws_subnet.build_private_subnet.id}",
+        # "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:subnet/${aws_subnet.build_public_subnet.id}",
+      ]
+    }
 
-  #   resources = [
-  #     "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:vpc/${aws_vpc.build_vpc.id}"
-  #     # "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:subnet/${aws_subnet.build_subnet.id}"
-  #   ]
-
-  #   # condition {
-  #   #   test = "StringEquals"
-  #   #   variable = "ec2:vpc"
-  #   #   values = [
-  #   #     "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:vpc/${aws_vpc.build_vpc.id}"
-  #   #   ]
-  #   # }
-  # }
+    condition {
+      test = "StringEquals"
+      variable = "ec2:AuthorizedService"
+      values = [
+        "codebuild.amazonaws.com"
+      ]
+    }
+  }
 }
 
 # The CloudWatch policy for our role
-resource "aws_iam_role_policy" "build_ec2_policy" {
+resource "aws_iam_role_policy" "build_vpc_policy" {
   role = "${aws_iam_role.build_role.id}"
-  policy = "${data.aws_iam_policy_document.build_ec2_doc.json}"
+  policy = "${data.aws_iam_policy_document.build_vpc_doc.json}"
 }
 
 # The CodeBuild project
