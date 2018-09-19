@@ -8,8 +8,8 @@ containers:
 * [gatherer](https://github.com/dhs-ncats/gatherer)
 * [scanner](https://github.com/dhs-ncats/scanner)
 * [saver](https://github.com/dhs-ncats/saver)
-* [pshtt_reporter](https://github.com/dhs-ncats/pshtt-reporter)
-* [trustymail_reporter](https://github.com/dhs-ncats/trustymail-reporter)
+* [pshtt_reporter](https://github.com/dhs-ncats/pshtt_reporter)
+* [trustymail_reporter](https://github.com/dhs-ncats/trustymail_reporter)
 
 ## Setup ##
 Before attempting to run this project, you must create a `secrets`
