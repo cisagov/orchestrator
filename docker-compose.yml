@@ -77,7 +77,7 @@ services:
     volumes:
       - ./output:/home/reporter/shared
   pshtt_report:
-    image: 'dhsncats/pshtt_reporter:1.0.6'
+    image: 'dhsncats/pshtt_reporter:1.0.7'
     depends_on:
       - redis
     secrets:
