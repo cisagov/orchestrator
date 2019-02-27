@@ -39,8 +39,6 @@ services:
       - AWS_PROFILE=lambda
     volumes:
       - ./output:/home/scanner/shared
-    dns:
-     - 8.8.8.8
   save:
     image: 'dhsncats/saver:1.0.12'
     depends_on:
