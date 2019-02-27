@@ -1,4 +1,8 @@
 #!/bin/bash
 
-cd /var/cyhy/orchestrator
+set -o nounset
+set -o errexit
+set -o pipefail
+
+cd /var/cyhy/orchestrator || exit 1
 docker-compose up -d
