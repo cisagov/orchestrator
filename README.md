@@ -1,6 +1,6 @@
 # NCATS Orchestrator :notes: :musical_note: #
 
-[![Build Status](https://travis-ci.org/cisagov/orchestrator.svg?branch=master)](https://travis-ci.org/cisagov/orchestrator)
+[![Build Status](https://travis-ci.com/cisagov/orchestrator.svg?branch=develop)](https://travis-ci.com/cisagov/orchestrator)
 
 This is a simple [`docker-compose`](https://docs.docker.com/compose/)
 project that orchestrates the running of the following Docker
