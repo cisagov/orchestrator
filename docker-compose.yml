@@ -19,7 +19,7 @@ services:
     #     protocol: tcp
     #     mode: host
   gather:
-    image: 'dhsncats/gatherer:1.2.0'
+    image: 'dhsncats/gatherer:1.2.1'
     depends_on:
       - redis
     secrets:
