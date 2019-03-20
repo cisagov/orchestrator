@@ -17,16 +17,14 @@ directory and several files inside it that contain credentials for the
 various Docker containers to use.  These files are:
 * `secrets/cyhy_read_creds.yml` - a YAML file containing credentials to
   read from the Cyber Hygiene database
-* `secrets/pshtt_write_creds.yml` - a YAML file containing credentials
-  to write to the pshtt database
-* `secrets/trustymail_write_creds.yml` - a YAML file containing
-  credentials to write to the trustymail database
-* `secrets/sslyze_write_creds.yml` - a YAML file containing credentials
-  to write to the sslyze database
-* `secrets/aws/config` - [an ini format file containing the AWS
+* `secrets/scan_read_creds.yml` - a YAML file containing credentials
+  to read the database containing the pshtt, trustymail, and sslyze
+  scan results
+* `secrets/scan_write_creds.yml` - a YAML file containing credentials
+  to write to the database containing the pshtt, trustymail, and
+  sslyze scan results
+* `secrets/aws_config` - [an ini format file containing the AWS
   configuration](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
-* `secrets/aws/credentials` - [an ini format file containing the AWS
-  credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
 
 As an example, `secrets/cyhy_read_creds.yml` should look something
 like this:
