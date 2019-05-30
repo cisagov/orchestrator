@@ -49,7 +49,7 @@ services:
     volumes:
       - ./output:/home/saver/shared
   trustymail_report:
-    image: 'dhsncats/trustymail_reporter:1.1.16'
+    image: 'dhsncats/trustymail_reporter:1.1.17'
     depends_on:
       - redis
     secrets:
