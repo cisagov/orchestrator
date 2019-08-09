@@ -28,7 +28,7 @@ services:
     volumes:
       - ./output:/home/gatherer/shared
   scan:
-    image: 'dhsncats/scanner:1.1.9'
+    image: 'dhsncats/scanner:1.1.10'
     depends_on:
       - redis
     secrets:
