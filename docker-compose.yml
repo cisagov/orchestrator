@@ -19,7 +19,7 @@ services:
     #     protocol: tcp
     #     mode: host
   gather:
-    image: 'cisagov/gatherer:1.2.2'
+    image: 'cisagov/gatherer:1.3.0'
     depends_on:
       - redis
     secrets:
