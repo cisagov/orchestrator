@@ -19,7 +19,7 @@ services:
     #     protocol: tcp
     #     mode: host
   gather:
-    image: 'cisagov/gatherer:1.2.2'
+    image: 'cisagov/gatherer:1.3.0'
     depends_on:
       - redis
     secrets:
@@ -28,7 +28,7 @@ services:
     volumes:
       - ./output:/home/gatherer/shared
   scan:
-    image: 'cisagov/scanner:1.2.1'
+    image: 'cisagov/scanner:1.2.2'
     depends_on:
       - redis
     secrets:
@@ -40,7 +40,7 @@ services:
     volumes:
       - ./output:/home/scanner/shared
   save:
-    image: 'cisagov/saver:1.1.3'
+    image: 'cisagov/saver:1.2.0'
     depends_on:
       - redis
     secrets:
