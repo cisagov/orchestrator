@@ -40,7 +40,7 @@ services:
     volumes:
       - ./output:/home/scanner/shared
   save:
-    image: 'cisagov/saver:1.2.0'
+    image: 'cisagov/saver:1.2.1'
     depends_on:
       - redis
     secrets:
