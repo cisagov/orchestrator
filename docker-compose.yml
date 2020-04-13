@@ -49,7 +49,7 @@ services:
     volumes:
       - ./output:/home/saver/shared
   trustymail_report:
-    image: 'cisagov/trustymail_reporter:1.1.18'
+    image: 'cisagov/trustymail_reporter:1.1.19'
     depends_on:
       - redis
     secrets:
