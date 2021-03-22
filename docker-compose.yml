@@ -63,7 +63,7 @@ services:
     volumes:
       - ./output:/home/reporter/shared
   pshtt_report:
-    image: 'cisagov/pshtt_reporter:1.1.12'
+    image: 'cisagov/pshtt_reporter:1.1.13'
     depends_on:
       - redis
     secrets:
