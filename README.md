@@ -33,6 +33,7 @@ As an example, `secrets/cyhy_read_creds.yml` should look something
 like this:
 
 ```yaml
+---
 version: '1'
 
 database:
