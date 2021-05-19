@@ -1,10 +1,11 @@
-# NCATS Orchestrator :notes: :musical_note: #
+# Orchestrator #
 
-[![Build Status](https://travis-ci.com/cisagov/orchestrator.svg?branch=develop)](https://travis-ci.com/cisagov/orchestrator)
+[![GitHub Build Status](https://github.com/cisagov/orchestrator/workflows/build/badge.svg)](https://github.com/cisagov/orchestrator/actions)
 
 This is a simple [`docker-compose`](https://docs.docker.com/compose/)
 project that orchestrates the running of the following Docker
-containers: 
+containers:
+
 * [gatherer](https://github.com/cisagov/gatherer)
 * [scanner](https://github.com/cisagov/scanner)
 * [saver](https://github.com/cisagov/saver)
@@ -12,9 +13,11 @@ containers:
 * [trustymail_reporter](https://github.com/cisagov/trustymail_reporter)
 
 ## Setup ##
+
 Before attempting to run this project, you must create a `secrets`
 directory and several files inside it that contain credentials for the
 various Docker containers to use.  These files are:
+
 * `secrets/cyhy_read_creds.yml` - a YAML file containing credentials to
   read from the Cyber Hygiene database
 * `secrets/scan_read_creds.yml` - a YAML file containing credentials
@@ -28,7 +31,9 @@ various Docker containers to use.  These files are:
 
 As an example, `secrets/cyhy_read_creds.yml` should look something
 like this:
-```
+
+```yaml
+---
 version: '1'
 
 database:
@@ -36,9 +41,20 @@ database:
   uri: mongodb://<DB_USERNAME>:<DB_PASSWORD>@<DB_HOST>:<DB_PORT>/cyhy
 ```
 
+## Usage ##
+
+```console
+docker-compose up -d
+```
+
+## Contributing ##
+
+We welcome contributions!  Please see [`CONTRIBUTING.md`](CONTRIBUTING.md) for
+details.
+
 ## License ##
 
-This project is in the worldwide [public domain](LICENSE.md).
+This project is in the worldwide [public domain](LICENSE).
 
 This project is in the public domain within the United States, and
 copyright and related rights in the work worldwide are waived through
