@@ -40,6 +40,12 @@ database:
   uri: mongodb://<DB_USERNAME>:<DB_PASSWORD>@<DB_HOST>:<DB_PORT>/cyhy
 ```
 
+## Usage ##
+
+```console
+docker-compose up -d
+```
+
 ## Contributing ##
 
 We welcome contributions!  Please see [`CONTRIBUTING.md`](CONTRIBUTING.md) for
