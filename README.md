@@ -1,4 +1,4 @@
-# orchestrator #
+# Orchestrator #
 
 [![GitHub Build Status](https://github.com/cisagov/orchestrator/workflows/build/badge.svg)](https://github.com/cisagov/orchestrator/actions)
 
