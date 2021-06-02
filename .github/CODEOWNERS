@@ -3,11 +3,7 @@
 # These owners will be the default owners for everything in the
 # repo. Unless a later match takes precedence, these owners will be
 # requested for review when someone opens a pull request.
-<<<<<<< HEAD
 * @dav3r @jsf9k @mcdonnnj
-=======
-* @dav3r @felddy @jsf9k @mcdonnnj
->>>>>>> b0e7f014e3710850cf60daddec3983fcd2a1f259
 
 # These folks own any files in the .github directory at the root of
 # the repository and any of its subdirectories.
