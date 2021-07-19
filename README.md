@@ -6,11 +6,11 @@ This is a simple [`docker-compose`](https://docs.docker.com/compose/)
 project that orchestrates the running of the following Docker
 containers:
 
-* [gatherer](https://github.com/cisagov/gatherer)
-* [scanner](https://github.com/cisagov/scanner)
-* [saver](https://github.com/cisagov/saver)
-* [pshtt_reporter](https://github.com/cisagov/pshtt_reporter)
-* [trustymail_reporter](https://github.com/cisagov/trustymail_reporter)
+- [gatherer](https://github.com/cisagov/gatherer)
+- [scanner](https://github.com/cisagov/scanner)
+- [saver](https://github.com/cisagov/saver)
+- [pshtt_reporter](https://github.com/cisagov/pshtt_reporter)
+- [trustymail_reporter](https://github.com/cisagov/trustymail_reporter)
 
 ## Setup ##
 
@@ -18,15 +18,15 @@ Before attempting to run this project, you must create a `secrets`
 directory and several files inside it that contain credentials for the
 various Docker containers to use.  These files are:
 
-* `secrets/cyhy_read_creds.yml` - a YAML file containing credentials to
+- `secrets/cyhy_read_creds.yml` - a YAML file containing credentials to
   read from the Cyber Hygiene database
-* `secrets/scan_read_creds.yml` - a YAML file containing credentials
+- `secrets/scan_read_creds.yml` - a YAML file containing credentials
   to read the database containing the pshtt, trustymail, and sslyze
   scan results
-* `secrets/scan_write_creds.yml` - a YAML file containing credentials
+- `secrets/scan_write_creds.yml` - a YAML file containing credentials
   to write to the database containing the pshtt, trustymail, and
   sslyze scan results
-* `secrets/aws_config` - [an ini format file containing the AWS
+- `secrets/aws_config` - [an ini format file containing the AWS
   configuration](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
 
 As an example, `secrets/cyhy_read_creds.yml` should look something
