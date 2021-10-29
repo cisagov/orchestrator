@@ -20,7 +20,7 @@ services:
     #     protocol: tcp
     #     mode: host
   gather:
-    image: 'cisagov/gatherer:1.5.0'
+    image: 'cisagov/gatherer:1.5.1'
     depends_on:
       - redis
     secrets:
@@ -50,7 +50,7 @@ services:
     volumes:
       - ./output:/home/saver/shared
   trustymail_report:
-    image: 'cisagov/trustymail_reporter:1.4.0'
+    image: 'cisagov/trustymail_reporter:1.4.1'
     depends_on:
       - redis
     secrets:
