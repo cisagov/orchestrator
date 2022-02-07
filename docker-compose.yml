@@ -20,7 +20,7 @@ services:
     #     protocol: tcp
     #     mode: host
   gather:
-    image: 'cisagov/gatherer:1.5.2'
+    image: 'cisagov/gatherer:1.5.3'
     depends_on:
       - redis
     secrets:
@@ -50,7 +50,7 @@ services:
     volumes:
       - ./output:/home/saver/shared
   trustymail_report:
-    image: 'cisagov/trustymail_reporter:1.4.3'
+    image: 'cisagov/trustymail_reporter:1.4.6'
     depends_on:
       - redis
     secrets:
@@ -64,11 +64,11 @@ services:
     volumes:
       - ./output:/home/cisa/shared
   pshtt_report:
-    image: 'cisagov/pshtt_reporter:1.1.14'
+    image: 'cisagov/pshtt_reporter:1.2.2'
     depends_on:
       - redis
     secrets:
       - source: scan_read_creds
         target: scan_read_creds.yml
     volumes:
-      - ./output:/home/reporter/shared
+      - ./output:/home/cisa/shared
