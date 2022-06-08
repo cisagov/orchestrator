@@ -2,7 +2,7 @@
 
 [![GitHub Build Status](https://github.com/cisagov/orchestrator/workflows/build/badge.svg)](https://github.com/cisagov/orchestrator/actions)
 
-This is a simple [`docker-compose`](https://docs.docker.com/compose/)
+This is a simple [Docker composition](https://docs.docker.com/compose/)
 project that orchestrates the running of the following Docker
 containers:
 
@@ -44,7 +44,7 @@ database:
 ## Usage ##
 
 ```console
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Contributing ##
