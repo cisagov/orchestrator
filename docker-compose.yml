@@ -12,13 +12,6 @@ secrets:
     file: ./secrets/aws_config
 
 services:
-  redis:
-    image: 'redis:alpine'
-    # ports:
-    #   - target: 6379
-    #     published: 6379
-    #     protocol: tcp
-    #     mode: host
   gather:
     depends_on:
       - redis
@@ -28,6 +21,31 @@ services:
         target: database_creds.yml
     volumes:
       - ./output:/home/cisa/shared
+  pshtt_report:
+    depends_on:
+      - redis
+    image: 'cisagov/pshtt_reporter:1.2.5'
+    secrets:
+      - source: scan_read_creds
+        target: scan_read_creds.yml
+    volumes:
+      - ./output:/home/cisa/shared
+  redis:
+    image: 'redis:alpine'
+    # ports:
+    #   - target: 6379
+    #     published: 6379
+    #     protocol: tcp
+    #     mode: host
+  save:
+    depends_on:
+      - redis
+    image: 'cisagov/saver:1.2.5'
+    secrets:
+      - source: scan_write_creds
+        target: scan_write_creds.yml
+    volumes:
+      - ./output:/home/saver/shared
   scan:
     depends_on:
       - redis
@@ -40,15 +58,6 @@ services:
         target: aws_config
     volumes:
       - ./output:/home/scanner/shared
-  save:
-    depends_on:
-      - redis
-    image: 'cisagov/saver:1.2.5'
-    secrets:
-      - source: scan_write_creds
-        target: scan_write_creds.yml
-    volumes:
-      - ./output:/home/saver/shared
   trustymail_report:
     depends_on:
       - redis
@@ -61,14 +70,5 @@ services:
         target: scan_read_creds.yml
       - source: aws_config
         target: aws_config
-    volumes:
-      - ./output:/home/cisa/shared
-  pshtt_report:
-    depends_on:
-      - redis
-    image: 'cisagov/pshtt_reporter:1.2.5'
-    secrets:
-      - source: scan_read_creds
-        target: scan_read_creds.yml
     volumes:
       - ./output:/home/cisa/shared
