@@ -40,12 +40,12 @@ services:
   save:
     depends_on:
       - redis
-    image: 'cisagov/saver:1.2.5'
+    image: 'cisagov/saver:1.3.0'
     secrets:
       - source: scan_write_creds
         target: scan_write_creds.yml
     volumes:
-      - ./output:/home/saver/shared
+      - ./output:/home/cisa/shared
   scan:
     depends_on:
       - redis
