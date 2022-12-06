@@ -12,6 +12,24 @@ secrets:
     file: ./secrets/aws_config
 
 services:
+  gather:
+    depends_on:
+      - redis
+    image: 'cisagov/gatherer:1.5.8'
+    secrets:
+      - source: cyhy_read_creds
+        target: database_creds.yml
+    volumes:
+      - ./output:/home/cisa/shared
+  pshtt_report:
+    depends_on:
+      - redis
+    image: 'cisagov/pshtt_reporter:1.2.6'
+    secrets:
+      - source: scan_read_creds
+        target: scan_read_creds.yml
+    volumes:
+      - ./output:/home/cisa/shared
   redis:
     image: 'redis:alpine'
     # ports:
@@ -19,56 +37,38 @@ services:
     #     published: 6379
     #     protocol: tcp
     #     mode: host
-  gather:
-    image: 'cisagov/gatherer:1.5.7'
-    depends_on:
-      - redis
-    secrets:
-      - source: cyhy_read_creds
-        target: database_creds.yml
-    volumes:
-      - ./output:/home/cisa/shared
-  scan:
-    image: 'cisagov/scanner:1.2.3'
-    depends_on:
-      - redis
-    secrets:
-      - source: aws_config
-        target: aws_config
-    environment:
-      - AWS_CONFIG_FILE=/run/secrets/aws_config
-      - AWS_PROFILE=lambda
-    volumes:
-      - ./output:/home/scanner/shared
   save:
-    image: 'cisagov/saver:1.2.5'
     depends_on:
       - redis
+    image: 'cisagov/saver:1.3.1'
     secrets:
       - source: scan_write_creds
         target: scan_write_creds.yml
     volumes:
-      - ./output:/home/saver/shared
-  trustymail_report:
-    image: 'cisagov/trustymail_reporter:1.4.8'
+      - ./output:/home/cisa/shared
+  scan:
     depends_on:
       - redis
+    environment:
+      - AWS_CONFIG_FILE=/run/secrets/aws_config
+      - AWS_PROFILE=lambda
+    image: 'cisagov/scanner:1.3.2'
+    secrets:
+      - source: aws_config
+        target: aws_config
+    volumes:
+      - ./output:/home/cisa/shared
+  trustymail_report:
+    depends_on:
+      - redis
+    environment:
+      - AWS_CONFIG_FILE=/run/secrets/aws_config
+      - AWS_PROFILE=elasticsearch
+    image: 'cisagov/trustymail_reporter:1.4.9'
     secrets:
       - source: scan_read_creds
         target: scan_read_creds.yml
       - source: aws_config
         target: aws_config
-    environment:
-      - AWS_CONFIG_FILE=/run/secrets/aws_config
-      - AWS_PROFILE=elasticsearch
-    volumes:
-      - ./output:/home/cisa/shared
-  pshtt_report:
-    image: 'cisagov/pshtt_reporter:1.2.5'
-    depends_on:
-      - redis
-    secrets:
-      - source: scan_read_creds
-        target: scan_read_creds.yml
     volumes:
       - ./output:/home/cisa/shared
