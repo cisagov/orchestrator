@@ -52,7 +52,7 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=lambda
-    image: 'cisagov/scanner:1.3.3'
+    image: 'cisagov/scanner:1.3.4'
     secrets:
       - source: aws_config
         target: aws_config
