@@ -64,7 +64,7 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
-    image: 'cisagov/trustymail_reporter:1.4.11'
+    image: 'cisagov/trustymail_reporter:1.5.0'
     secrets:
       - source: scan_read_creds
         target: scan_read_creds.yml
