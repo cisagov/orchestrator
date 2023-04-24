@@ -33,12 +33,12 @@ services:
   redis:
     image: 'redis:alpine'
     # ports:
-    #   - target: 6379
+    #   - mode: host
+    #     protocol: tcp
     #     # Note that we expose redis on a non-standard port to avoid
     #     # conflict with the Admiral.
     #     published: 6378
-    #     protocol: tcp
-    #     mode: host
+    #     target: 6379
   save:
     depends_on:
       - redis
