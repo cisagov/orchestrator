@@ -37,7 +37,8 @@ services:
     #     mode: host
     #     protocol: tcp
     #     # Note that we expose redis on a non-standard port to avoid
-    #     # conflict with the Admiral.
+    #     # conflict with the Admiral:
+    #     # https://github.com/cisagov/ansible-role-admiral
     #     published: 6378
     #     target: 6379
   save:
