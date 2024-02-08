@@ -15,7 +15,7 @@ services:
   gather:
     depends_on:
       - redis
-    image: 'cisagov/gatherer:1.5.16'
+    image: 'cisagov/gatherer:1.5.17'
     secrets:
       - source: cyhy_read_creds
         target: database_creds.yml
