@@ -15,7 +15,7 @@ services:
   gather:
     depends_on:
       - redis
-    image: 'cisagov/gatherer:1.5.17'
+    image: 'cisagov/gatherer:1.5.18'
     secrets:
       - source: cyhy_read_creds
         target: database_creds.yml
@@ -24,7 +24,7 @@ services:
   pshtt_report:
     depends_on:
       - redis
-    image: 'cisagov/pshtt_reporter:1.2.16'
+    image: 'cisagov/pshtt_reporter:1.2.17'
     secrets:
       - source: scan_read_creds
         target: scan_read_creds.yml
@@ -44,7 +44,7 @@ services:
   save:
     depends_on:
       - redis
-    image: 'cisagov/saver:1.3.4'
+    image: 'cisagov/saver:1.3.6'
     secrets:
       - source: scan_write_creds
         target: scan_write_creds.yml
@@ -56,7 +56,7 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=lambda
-    image: 'cisagov/scanner:1.3.6'
+    image: 'cisagov/scanner:1.3.7'
     secrets:
       - source: aws_config
         target: aws_config
@@ -68,7 +68,7 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
-    image: 'cisagov/trustymail_reporter:1.5.4'
+    image: 'cisagov/trustymail_reporter:1.5.5'
     secrets:
       - source: scan_read_creds
         target: scan_read_creds.yml
