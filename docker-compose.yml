@@ -14,7 +14,8 @@ secrets:
 services:
   gather:
     depends_on:
-      - redis
+      redis:
+        condition: service_started
     image: cisagov/gatherer:1.5.18
     secrets:
       - source: cyhy_read_creds
@@ -23,7 +24,8 @@ services:
       - ./output:/home/cisa/shared
   pshtt_report:
     depends_on:
-      - redis
+      redis:
+        condition: service_started
     image: cisagov/pshtt_reporter:1.2.17
     secrets:
       - source: scan_read_creds
@@ -43,7 +45,8 @@ services:
     #     target: 6379
   save:
     depends_on:
-      - redis
+      redis:
+        condition: service_started
     image: cisagov/saver:1.3.7
     secrets:
       - source: scan_write_creds
@@ -52,7 +55,8 @@ services:
       - ./output:/home/cisa/shared
   scan:
     depends_on:
-      - redis
+      redis:
+        condition: service_started
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=lambda
@@ -64,7 +68,8 @@ services:
       - ./output:/home/cisa/shared
   trustymail_report:
     depends_on:
-      - redis
+      redis:
+        condition: service_started
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
