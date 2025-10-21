@@ -1,4 +1,6 @@
 ---
+name: orchestrator
+
 secrets:
   cyhy_read_creds:
     file: ./secrets/cyhy_read_creds.yml
