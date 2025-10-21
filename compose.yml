@@ -1,6 +1,4 @@
 ---
-version: "3.2"
-
 secrets:
   cyhy_read_creds:
     file: ./secrets/cyhy_read_creds.yml
