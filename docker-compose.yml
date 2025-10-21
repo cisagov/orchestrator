@@ -26,6 +26,8 @@ services:
     depends_on:
       redis:
         condition: service_started
+      save:
+        condition: service_completed_successfully
     image: cisagov/pshtt_reporter:1.2.17
     secrets:
       - source: scan_read_creds
@@ -47,6 +49,8 @@ services:
     depends_on:
       redis:
         condition: service_started
+      scan:
+        condition: service_completed_successfully
     image: cisagov/saver:1.3.7
     secrets:
       - source: scan_write_creds
@@ -55,6 +59,8 @@ services:
       - ./output:/home/cisa/shared
   scan:
     depends_on:
+      gather:
+        condition: service_completed_successfully
       redis:
         condition: service_started
     environment:
@@ -70,6 +76,8 @@ services:
     depends_on:
       redis:
         condition: service_started
+      save:
+        condition: service_completed_successfully
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
