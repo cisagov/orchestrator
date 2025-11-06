@@ -34,7 +34,7 @@ like this:
 
 ```yaml
 ---
-version: '1'
+version: "1"
 
 database:
   name: cyhy
