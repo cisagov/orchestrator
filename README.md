@@ -26,7 +26,7 @@ various Docker containers to use.  These files are:
 - `secrets/scan_write_creds.yml` - a YAML file containing credentials
   to write to the database containing the pshtt, trustymail, and
   sslyze scan results
-- `secrets/aws_config` - [an ini format file containing the AWS
+- `secrets/aws_config` - an [ini format file containing the AWS
   configuration](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
 
 As an example, `secrets/cyhy_read_creds.yml` should look something
