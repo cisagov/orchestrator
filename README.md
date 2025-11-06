@@ -9,8 +9,8 @@ containers:
 - [gatherer](https://github.com/cisagov/gatherer)
 - [scanner](https://github.com/cisagov/scanner)
 - [saver](https://github.com/cisagov/saver)
-- [pshtt_reporter](https://github.com/cisagov/pshtt_reporter)
-- [trustymail_reporter](https://github.com/cisagov/trustymail_reporter)
+- [pshtt\_reporter](https://github.com/cisagov/pshtt_reporter)
+- [trustymail\_reporter](https://github.com/cisagov/trustymail_reporter)
 
 ## Setup ##
 
