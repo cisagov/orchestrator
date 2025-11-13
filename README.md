@@ -9,8 +9,8 @@ containers:
 - [gatherer](https://github.com/cisagov/gatherer)
 - [scanner](https://github.com/cisagov/scanner)
 - [saver](https://github.com/cisagov/saver)
-- [pshtt_reporter](https://github.com/cisagov/pshtt_reporter)
-- [trustymail_reporter](https://github.com/cisagov/trustymail_reporter)
+- [pshtt\_reporter](https://github.com/cisagov/pshtt_reporter)
+- [trustymail\_reporter](https://github.com/cisagov/trustymail_reporter)
 
 ## Setup ##
 
@@ -26,7 +26,7 @@ various Docker containers to use.  These files are:
 - `secrets/scan_write_creds.yml` - a YAML file containing credentials
   to write to the database containing the pshtt, trustymail, and
   sslyze scan results
-- `secrets/aws_config` - [an ini format file containing the AWS
+- `secrets/aws_config` - an [ini format file containing the AWS
   configuration](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
 
 As an example, `secrets/cyhy_read_creds.yml` should look something
@@ -34,7 +34,7 @@ like this:
 
 ```yaml
 ---
-version: '1'
+version: "1"
 
 database:
   name: cyhy
