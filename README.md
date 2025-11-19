@@ -1,6 +1,8 @@
 # Orchestrator #
 
 [![GitHub Build Status](https://github.com/cisagov/orchestrator/workflows/build/badge.svg)](https://github.com/cisagov/orchestrator/actions)
+[![License](https://img.shields.io/github/license/cisagov/orchestrator)](https://spdx.org/licenses/)
+[![CodeQL](https://github.com/cisagov/orchestrator/workflows/CodeQL/badge.svg)](https://github.com/cisagov/orchestrator/actions/workflows/codeql-analysis.yml)
 
 This is a simple [Docker composition](https://docs.docker.com/compose/)
 project that orchestrates the running of the following Docker
