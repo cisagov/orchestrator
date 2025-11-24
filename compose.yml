@@ -24,7 +24,7 @@ services:
   pshtt_report:
     depends_on:
       - redis
-    image: cisagov/pshtt_reporter:1.2.17
+    image: cisagov/pshtt_reporter:1.3.0
     secrets:
       - source: scan_read_creds
         target: scan_read_creds.yml
