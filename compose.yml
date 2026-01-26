@@ -44,7 +44,7 @@ services:
   save:
     depends_on:
       - redis
-    image: cisagov/saver:1.4.2
+    image: cisagov/saver:1.4.3
     secrets:
       - source: scan_write_creds
         target: scan_write_creds.yml
