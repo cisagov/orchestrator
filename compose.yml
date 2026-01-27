@@ -44,8 +44,13 @@ services:
   save:
     depends_on:
       - redis
+    environment:
+      - AWS_CONFIG_FILE=/run/secrets/aws_config
+      - AWS_PROFILE=elasticsearch
     image: cisagov/saver:1.4.3
     secrets:
+      - source: aws_config
+        target: aws_config
       - source: scan_write_creds
         target: scan_write_creds.yml
     volumes:
