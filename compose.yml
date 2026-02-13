@@ -47,6 +47,9 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
+      # Setting this environment variable ensures that the config file
+      # (and not just any credentials file that is present) is loaded.
+      - AWS_SDK_LOAD_CONFIG=1
     image: cisagov/saver:1.4.3
     secrets:
       - source: aws_config
@@ -61,6 +64,9 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=lambda
+      # Setting this environment variable ensures that the config file
+      # (and not just any credentials file that is present) is loaded.
+      - AWS_SDK_LOAD_CONFIG=1
     image: cisagov/scanner:1.4.0
     secrets:
       - source: aws_config
@@ -73,6 +79,9 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
+      # Setting this environment variable ensures that the config file
+      # (and not just any credentials file that is present) is loaded.
+      - AWS_SDK_LOAD_CONFIG=1
     image: cisagov/trustymail_reporter:1.7.0
     secrets:
       - source: aws_config
