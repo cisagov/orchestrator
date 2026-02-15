@@ -2,14 +2,14 @@
 name: orchestrator
 
 secrets:
+  aws_config:
+    file: ./secrets/aws_config
   cyhy_read_creds:
     file: ./secrets/cyhy_read_creds.yml
   scan_read_creds:
     file: ./secrets/scan_read_creds.yml
   scan_write_creds:
     file: ./secrets/scan_write_creds.yml
-  aws_config:
-    file: ./secrets/aws_config
 
 services:
   gather:
@@ -44,8 +44,16 @@ services:
   save:
     depends_on:
       - redis
+    environment:
+      - AWS_CONFIG_FILE=/run/secrets/aws_config
+      - AWS_PROFILE=elasticsearch
+      # Setting this environment variable ensures that the config file
+      # (and not just any credentials file that is present) is loaded.
+      - AWS_SDK_LOAD_CONFIG=1
     image: cisagov/saver:1.4.3
     secrets:
+      - source: aws_config
+        target: aws_config
       - source: scan_write_creds
         target: scan_write_creds.yml
     volumes:
@@ -56,6 +64,9 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=lambda
+      # Setting this environment variable ensures that the config file
+      # (and not just any credentials file that is present) is loaded.
+      - AWS_SDK_LOAD_CONFIG=1
     image: cisagov/scanner:1.4.0
     secrets:
       - source: aws_config
@@ -68,11 +79,14 @@ services:
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
+      # Setting this environment variable ensures that the config file
+      # (and not just any credentials file that is present) is loaded.
+      - AWS_SDK_LOAD_CONFIG=1
     image: cisagov/trustymail_reporter:1.7.0
     secrets:
-      - source: scan_read_creds
-        target: scan_read_creds.yml
       - source: aws_config
         target: aws_config
+      - source: scan_read_creds
+        target: scan_read_creds.yml
     volumes:
       - ./output:/home/cisa/shared
