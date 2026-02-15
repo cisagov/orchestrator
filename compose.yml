@@ -15,7 +15,7 @@ services:
   gather:
     depends_on:
       - redis
-    image: cisagov/gatherer:2.0.2
+    image: cisagov/gatherer:2.0.3
     secrets:
       - source: cyhy_read_creds
         target: database_creds.yml
@@ -50,7 +50,7 @@ services:
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
       - AWS_SDK_LOAD_CONFIG=1
-    image: cisagov/saver:1.4.3
+    image: cisagov/saver:1.5.0
     secrets:
       - source: aws_config
         target: aws_config
