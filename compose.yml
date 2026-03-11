@@ -50,7 +50,7 @@ services:
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
       - AWS_SDK_LOAD_CONFIG=1
-    image: cisagov/saver:1.6.0
+    image: cisagov/saver:v1.6.1
     secrets:
       - source: aws_config
         target: aws_config
