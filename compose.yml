@@ -14,7 +14,8 @@ secrets:
 services:
   gather:
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     image: cisagov/gatherer:2.0.3
     secrets:
       - source: cyhy_read_creds
@@ -23,7 +24,8 @@ services:
       - ./output:/home/cisa/shared
   pshtt_report:
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     image: cisagov/pshtt_reporter:v1.4.2
     secrets:
       - source: scan_read_creds
@@ -31,6 +33,15 @@ services:
     volumes:
       - ./output:/home/cisa/shared
   redis:
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
     image: redis:alpine
     # ports:
     #   - host_ip: 127.0.0.1
@@ -43,7 +54,8 @@ services:
     #     target: 6379
   save:
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
@@ -60,7 +72,8 @@ services:
       - ./output:/home/cisa/shared
   scan:
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=lambda
@@ -75,7 +88,8 @@ services:
       - ./output:/home/cisa/shared
   trustymail_report:
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     environment:
       - AWS_CONFIG_FILE=/run/secrets/aws_config
       - AWS_PROFILE=elasticsearch
