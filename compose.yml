@@ -16,7 +16,7 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-    image: cisagov/gatherer:2.0.3
+    image: cisagov/gatherer:v2.0.4
     secrets:
       - source: cyhy_read_creds
         target: database_creds.yml
@@ -26,7 +26,7 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-    image: cisagov/pshtt_reporter:v1.4.2
+    image: cisagov/pshtt_reporter:v1.4.3
     secrets:
       - source: scan_read_creds
         target: scan_read_creds.yml
@@ -62,7 +62,7 @@ services:
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
       - AWS_SDK_LOAD_CONFIG=1
-    image: cisagov/saver:1.6.2
+    image: cisagov/saver:v1.6.3
     secrets:
       - source: aws_config
         target: aws_config
@@ -96,7 +96,7 @@ services:
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
       - AWS_SDK_LOAD_CONFIG=1
-    image: cisagov/trustymail_reporter:v1.7.3
+    image: cisagov/trustymail_reporter:v1.7.4
     secrets:
       - source: aws_config
         target: aws_config
