@@ -57,11 +57,12 @@ services:
       redis:
         condition: service_healthy
     environment:
-      - AWS_CONFIG_FILE=/run/secrets/aws_config
-      - AWS_PROFILE=elasticsearch
+      AWS_CONFIG_FILE: /run/secrets/aws_config
+      AWS_PROFILE: elasticsearch
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
-      - AWS_SDK_LOAD_CONFIG=1
+      AWS_SDK_LOAD_CONFIG: "1"
+      ELASTICSEARCH_URL: https://search-dmarc-import-elasticsearch-ekc3pdnqzcuifgu4qssctvq4v4.us-east-1.es.amazonaws.com
     image: cisagov/saver:v1.6.4
     secrets:
       - source: aws_config
