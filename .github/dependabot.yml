@@ -5,6 +5,13 @@
 # these updates when the pull request(s) in the appropriate skeleton are merged
 # and Lineage processes these changes.
 
+registries:
+  dockerhub:
+    type: docker-registry
+    url: registry.hub.docker.com
+    username: ${{secrets.DOCKER_USERNAME}}
+    password: ${{secrets.DOCKER_PASSWORD}}
+
 updates:
   - directory: /
     groups:
@@ -12,6 +19,8 @@ updates:
         patterns:
           - "*"
     package-ecosystem: docker-compose
+    registries:
+      - dockerhub
     schedule:
       interval: weekly
 
