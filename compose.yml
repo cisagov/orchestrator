@@ -63,7 +63,7 @@ services:
       # (and not just any credentials file that is present) is loaded.
       AWS_SDK_LOAD_CONFIG: "1"
       ELASTICSEARCH_URL: https://search-dmarc-import-elasticsearch-ekc3pdnqzcuifgu4qssctvq4v4.us-east-1.es.amazonaws.com
-    image: cisagov/saver:v1.6.4
+    image: cisagov/saver:v1.6.5
     secrets:
       - source: aws_config
         target: aws_config
