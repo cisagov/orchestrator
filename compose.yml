@@ -16,7 +16,7 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-    image: cisagov/gatherer:v2.0.7
+    image: cisagov/gatherer:v2.0.8
     secrets:
       - source: cyhy_read_creds
         target: database_creds.yml
