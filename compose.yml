@@ -62,7 +62,7 @@ services:
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
       - AWS_SDK_LOAD_CONFIG=1
-    image: cisagov/saver:v1.6.6
+    image: cisagov/saver:v2.0.0
     secrets:
       - source: aws_config
         target: aws_config
@@ -96,7 +96,7 @@ services:
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
       - AWS_SDK_LOAD_CONFIG=1
-    image: cisagov/trustymail_reporter:v1.7.8
+    image: cisagov/trustymail_reporter:v1.7.9
     secrets:
       - source: aws_config
         target: aws_config
