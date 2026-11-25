@@ -6,6 +6,8 @@ secrets:
     file: ./secrets/aws_config
   cyhy_read_creds:
     file: ./secrets/cyhy_read_creds.yml
+  redis_password:
+    file: ./secrets/redis_password
   scan_read_creds:
     file: ./secrets/scan_read_creds.yml
   scan_write_creds:
@@ -16,6 +18,8 @@ services:
     depends_on:
       redis:
         condition: service_healthy
+    environment:
+      REDISCLI_AUTH: $$(cat /run/secrets/redis_password)
     image: cisagov/gatherer:v2.0.9
     secrets:
       - source: cyhy_read_creds
@@ -26,6 +30,8 @@ services:
     depends_on:
       redis:
         condition: service_healthy
+    environment:
+      REDISCLI_AUTH: $$(cat /run/secrets/redis_password)
     image: cisagov/pshtt_reporter:v1.4.8
     secrets:
       - source: scan_read_creds
@@ -33,6 +39,12 @@ services:
     volumes:
       - ./output:/home/cisa/shared
   redis:
+    command:
+      - redis-server
+      - --requirepass
+      - $$(cat /run/secrets/redis_password)
+    environment:
+      REDISCLI_AUTH: ${REDIS_PASSWORD}
     healthcheck:
       test:
         - CMD
@@ -57,11 +69,12 @@ services:
       redis:
         condition: service_healthy
     environment:
-      - AWS_CONFIG_FILE=/run/secrets/aws_config
-      - AWS_PROFILE=elasticsearch
+      AWS_CONFIG_FILE: /run/secrets/aws_config
+      AWS_PROFILE: elasticsearch
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
-      - AWS_SDK_LOAD_CONFIG=1
+      AWS_SDK_LOAD_CONFIG: 1
+      REDISCLI_AUTH: $$(cat /run/secrets/redis_password)
     image: cisagov/saver:v2.0.0
     secrets:
       - source: aws_config
@@ -75,11 +88,12 @@ services:
       redis:
         condition: service_healthy
     environment:
-      - AWS_CONFIG_FILE=/run/secrets/aws_config
-      - AWS_PROFILE=lambda
+      AWS_CONFIG_FILE: /run/secrets/aws_config
+      AWS_PROFILE: lambda
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
-      - AWS_SDK_LOAD_CONFIG=1
+      AWS_SDK_LOAD_CONFIG: 1
+      REDISCLI_AUTH: $$(cat /run/secrets/redis_password)
     image: cisagov/scanner:1.4.0
     secrets:
       - source: aws_config
@@ -91,11 +105,12 @@ services:
       redis:
         condition: service_healthy
     environment:
-      - AWS_CONFIG_FILE=/run/secrets/aws_config
-      - AWS_PROFILE=elasticsearch
+      AWS_CONFIG_FILE: /run/secrets/aws_config
+      AWS_PROFILE: elasticsearch
       # Setting this environment variable ensures that the config file
       # (and not just any credentials file that is present) is loaded.
-      - AWS_SDK_LOAD_CONFIG=1
+      AWS_SDK_LOAD_CONFIG: 1
+      REDISCLI_AUTH: $$(cat /run/secrets/redis_password)
     image: cisagov/trustymail_reporter:v1.7.9
     secrets:
       - source: aws_config

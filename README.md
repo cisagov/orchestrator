@@ -20,16 +20,18 @@ Before attempting to run this project, you must create a `secrets`
 directory and several files inside it that contain credentials for the
 various Docker containers to use.  These files are:
 
+- `secrets/aws_config` - an [ini format file containing the AWS
+  configuration](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
 - `secrets/cyhy_read_creds.yml` - a YAML file containing credentials to
   read from the Cyber Hygiene database
+- `secrets/redis_password` - a text file containing a password to be
+  used with the Redis database
 - `secrets/scan_read_creds.yml` - a YAML file containing credentials
   to read the database containing the pshtt, trustymail, and sslyze
   scan results
 - `secrets/scan_write_creds.yml` - a YAML file containing credentials
   to write to the database containing the pshtt, trustymail, and
   sslyze scan results
-- `secrets/aws_config` - an [ini format file containing the AWS
-  configuration](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
 
 As an example, `secrets/cyhy_read_creds.yml` should look something
 like this:
